@@ -1,0 +1,192 @@
+[gd_scene load_steps=13 format=2]
+
+[ext_resource path="res://styles/line_edit/line_edit.tres" type="StyleBox" id=1]
+[ext_resource path="res://styles/button/button_hover.tres" type="StyleBox" id=2]
+[ext_resource path="res://styles/button/button_pressed.tres" type="StyleBox" id=3]
+[ext_resource path="res://styles/button/button_normal.tres" type="StyleBox" id=4]
+[ext_resource path="res://assets/texture/checker.png" type="Texture" id=5]
+[ext_resource path="res://temp/ass.png" type="Texture" id=6]
+[ext_resource path="res://src/Creator/Conductor.gd" type="Script" id=8]
+[ext_resource path="res://src/Creator/Creator.gd" type="Script" id=9]
+[ext_resource path="res://src/Creator/Preview/Animation.gd" type="Script" id=10]
+[ext_resource path="res://src/Creator/FileDialog.gd" type="Script" id=11]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.176471, 0.176471, 0.176471, 1 )
+
+[sub_resource type="Animation" id=2]
+resource_name = "loop"
+step = 0.166667
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.166667, 0.333333, 0.5, 0.666667, 0.833333 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 3, 4, 5 ]
+}
+
+[node name="Creator" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 9 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Background" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Bottom" type="ColorRect" parent="Background"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -552.0
+color = Color( 0.054902, 0.0509804, 0.054902, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Top" type="ColorRect" parent="Background"]
+anchor_right = 1.0
+margin_bottom = 48.0
+color = Color( 0.145098, 0.137255, 0.14902, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Main" type="Control" parent="."]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -552.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Fields" type="VBoxContainer" parent="Main"]
+margin_left = 24.0
+margin_top = 48.0
+margin_right = 336.0
+margin_bottom = 448.0
+custom_constants/separation = 6
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Song" type="HBoxContainer" parent="Main/Fields"]
+margin_right = 312.0
+margin_bottom = 25.0
+rect_min_size = Vector2( 0, 25 )
+alignment = 1
+
+[node name="LineEdit" type="LineEdit" parent="Main/Fields/Song"]
+margin_right = 208.0
+margin_bottom = 25.0
+size_flags_horizontal = 3
+custom_styles/read_only = SubResource( 1 )
+custom_styles/normal = ExtResource( 1 )
+align = 1
+editable = false
+placeholder_text = "Load Song"
+
+[node name="LoadSong" type="Button" parent="Main/Fields/Song"]
+margin_left = 212.0
+margin_right = 312.0
+margin_bottom = 25.0
+rect_min_size = Vector2( 100, 0 )
+custom_styles/hover = ExtResource( 2 )
+custom_styles/pressed = ExtResource( 3 )
+custom_styles/normal = ExtResource( 4 )
+text = "Load"
+
+[node name="Image" type="HBoxContainer" parent="Main/Fields"]
+margin_top = 31.0
+margin_right = 312.0
+margin_bottom = 56.0
+rect_min_size = Vector2( 0, 25 )
+alignment = 1
+
+[node name="LineEdit" type="LineEdit" parent="Main/Fields/Image"]
+margin_right = 208.0
+margin_bottom = 25.0
+size_flags_horizontal = 3
+custom_styles/read_only = SubResource( 1 )
+custom_styles/normal = ExtResource( 1 )
+align = 1
+editable = false
+placeholder_text = "Load Image"
+
+[node name="LoadImage" type="Button" parent="Main/Fields/Image"]
+margin_left = 212.0
+margin_right = 312.0
+margin_bottom = 25.0
+rect_min_size = Vector2( 100, 0 )
+custom_styles/hover = ExtResource( 2 )
+custom_styles/pressed = ExtResource( 3 )
+custom_styles/normal = ExtResource( 4 )
+text = "Load"
+
+[node name="Preview" type="Node2D" parent="Main"]
+position = Vector2( 504, 248 )
+scale = Vector2( 2, 2 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Background" type="Sprite" parent="Main/Preview"]
+texture = ExtResource( 5 )
+
+[node name="Animation" type="Sprite" parent="Main/Preview"]
+scale = Vector2( 0.25, 0.25 )
+texture = ExtResource( 6 )
+hframes = 3
+vframes = 2
+frame = 5
+script = ExtResource( 10 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Main/Preview/Animation"]
+autoplay = "loop"
+playback_speed = 2.0
+anims/loop = SubResource( 2 )
+
+[node name="Settings" type="VBoxContainer" parent="Main"]
+margin_left = 672.0
+margin_top = 48.0
+margin_right = 896.0
+margin_bottom = 208.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SpinBox" type="SpinBox" parent="Main/Settings"]
+margin_right = 224.0
+margin_bottom = 24.0
+
+[node name="Conductor" type="AudioStreamPlayer" parent="."]
+autoplay = true
+script = ExtResource( 8 )
+
+[node name="FileDialog" type="FileDialog" parent="."]
+margin_left = 16.0
+margin_top = 168.0
+margin_right = 376.0
+margin_bottom = 520.0
+window_title = "Open a File"
+mode = 0
+script = ExtResource( 11 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="button_up" from="Main/Fields/Song/LoadSong" to="FileDialog" method="get_file" binds= [ 0 ]]
+[connection signal="button_up" from="Main/Fields/Image/LoadImage" to="FileDialog" method="get_file" binds= [ 1 ]]
+[connection signal="beat" from="Conductor" to="Main/Preview/Animation" method="loop"]

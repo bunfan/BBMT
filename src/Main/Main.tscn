@@ -1,0 +1,223 @@
+[gd_scene load_steps=13 format=2]
+
+[ext_resource path="res://src/Main/Main.gd" type="Script" id=1]
+[ext_resource path="res://styles/fonts/title.tres" type="DynamicFont" id=2]
+[ext_resource path="res://styles/fonts/pixel.tres" type="DynamicFont" id=3]
+[ext_resource path="res://assets/texture/menu_pattern.png" type="Texture" id=4]
+[ext_resource path="res://styles/button/button_normal.tres" type="StyleBox" id=5]
+[ext_resource path="res://styles/button/button_hover.tres" type="StyleBox" id=6]
+[ext_resource path="res://styles/button/button_pressed.tres" type="StyleBox" id=7]
+[ext_resource path="res://styles/line_edit/line_edit.tres" type="StyleBox" id=8]
+[ext_resource path="res://assets/sound/click.ogg" type="AudioStream" id=9]
+
+[sub_resource type="Shader" id=1]
+code = "shader_type canvas_item;
+
+uniform vec2 tile_factor = vec2(20.0,20.0);
+uniform float ratio = 0.99;
+uniform float wobble = 0.03;
+
+void fragment() {
+	vec2 tiled_uvs = UV * tile_factor;
+	tiled_uvs.y *= ratio;
+	
+	vec2 waves;
+	waves.x = cos(TIME + tiled_uvs.y + tiled_uvs.x) + (TIME*2.0);
+	waves.y = sin(TIME + tiled_uvs.x)  + (TIME*2.0);
+	
+	//COLOR = vec4(waves,0.0,1.0); //This was for visualizing the waves UVs
+	COLOR = texture( TEXTURE, tiled_uvs + waves * wobble);
+}"
+
+[sub_resource type="ShaderMaterial" id=2]
+shader = SubResource( 1 )
+shader_param/tile_factor = Vector2( 20, 20 )
+shader_param/ratio = 0.6
+shader_param/wobble = 0.03
+
+[sub_resource type="StyleBoxFlat" id=3]
+bg_color = Color( 0.0588235, 0.054902, 0.0588235, 1 )
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[node name="Main" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Background" type="Sprite" parent="."]
+material = SubResource( 2 )
+scale = Vector2( 16, 9.375 )
+texture = ExtResource( 4 )
+centered = false
+
+[node name="Banner" type="ColorRect" parent="."]
+margin_top = 72.0
+margin_right = 1024.0
+margin_bottom = 304.0
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Title" type="Label" parent="."]
+anchor_top = 0.496667
+anchor_right = 1.0
+anchor_bottom = 0.496667
+margin_top = -187.0
+margin_right = -6.10352e-05
+margin_bottom = -57.9998
+custom_fonts/font = ExtResource( 2 )
+text = "Beat
+Banger"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Caption" type="Label" parent="."]
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = 1.18921
+margin_top = -57.916
+margin_right = 1.18921
+margin_bottom = -13.916
+custom_fonts/font = ExtResource( 3 )
+text = "Modding Tool v2.0"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="NewMod" type="Button" parent="."]
+margin_left = 392.0
+margin_top = 384.0
+margin_right = 632.0
+margin_bottom = 416.0
+custom_styles/hover = ExtResource( 6 )
+custom_styles/pressed = ExtResource( 7 )
+custom_styles/normal = ExtResource( 5 )
+text = "Create New Mod"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LoadMod" type="Button" parent="."]
+margin_left = 392.0
+margin_top = 424.0
+margin_right = 632.0
+margin_bottom = 456.0
+custom_styles/hover = ExtResource( 6 )
+custom_styles/pressed = ExtResource( 7 )
+custom_styles/normal = ExtResource( 5 )
+text = "Load Existing Mod"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="NewModSplash" type="Control" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Dark" type="ColorRect" parent="NewModSplash"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 0.784314 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CenterContainer" type="CenterContainer" parent="NewModSplash"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel" type="Panel" parent="NewModSplash/CenterContainer"]
+margin_left = 312.0
+margin_top = 230.0
+margin_right = 712.0
+margin_bottom = 370.0
+rect_min_size = Vector2( 400, 140 )
+custom_styles/panel = SubResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ModName" type="LineEdit" parent="NewModSplash/CenterContainer/Panel"]
+margin_left = 72.0
+margin_top = 50.0
+margin_right = 328.0
+margin_bottom = 82.0
+custom_styles/normal = ExtResource( 8 )
+align = 1
+placeholder_text = "Mod Name"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="NewModSplash/CenterContainer/Panel"]
+margin_left = 88.0
+margin_top = 18.0
+margin_right = 312.0
+margin_bottom = 44.0
+text = "Create New Mod"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CreateMod" type="Button" parent="NewModSplash/CenterContainer/Panel"]
+margin_left = 72.0
+margin_top = 90.0
+margin_right = 192.0
+margin_bottom = 122.0
+rect_pivot_offset = Vector2( 112, 24 )
+custom_styles/hover = ExtResource( 6 )
+custom_styles/pressed = ExtResource( 7 )
+custom_styles/normal = ExtResource( 5 )
+text = "Create Mod"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="GoBack" type="Button" parent="NewModSplash/CenterContainer/Panel"]
+margin_left = 208.0
+margin_top = 90.0
+margin_right = 328.0
+margin_bottom = 122.0
+rect_pivot_offset = Vector2( 112, 24 )
+custom_styles/hover = ExtResource( 6 )
+custom_styles/pressed = ExtResource( 7 )
+custom_styles/normal = ExtResource( 5 )
+text = "Go Back"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Sound" type="Node" parent="."]
+
+[node name="Click" type="AudioStreamPlayer" parent="Sound"]
+stream = ExtResource( 9 )
+
+[connection signal="button_up" from="NewMod" to="." method="_on_NewMod_button_up"]
+[connection signal="button_up" from="NewModSplash/CenterContainer/Panel/CreateMod" to="." method="_on_CreateMod_button_up"]
+[connection signal="button_up" from="NewModSplash/CenterContainer/Panel/GoBack" to="." method="_on_GoBack_button_up"]
