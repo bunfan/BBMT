@@ -1,7 +1,7 @@
 extends FileDialog
 
 onready var animation_node = get_node('../Main/Preview/Animation')
-onready var conductor_node = get_node('../Conductor')
+onready var conductor = get_node('../Conductor')
 
 enum {SONG, ANIMATION}
 var update_index = -1
@@ -9,7 +9,7 @@ var update_index = -1
 func _ready():
 	if connect('file_selected', self, 'file_selected') == OK: pass
 	if connect('update_animation', animation_node, 'update_animation') == OK: pass
-	if connect('update_song', conductor_node, 'update_song') == OK: pass
+	if connect('update_song', conductor, 'update_song') == OK: pass
 
 var file_filters = [
 	['*.ogg; OGG'], # Song

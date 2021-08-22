@@ -1,0 +1,25 @@
+[gd_scene load_steps=2 format=2]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.160784, 0.160784, 0.160784, 1 )
+
+[node name="ImageAsset" type="Panel"]
+margin_right = 220.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 0, 40 )
+custom_styles/panel = SubResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="."]
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -220.0
+text = "_Path"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}

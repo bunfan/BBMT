@@ -1,15 +1,19 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://styles/line_edit/line_edit.tres" type="StyleBox" id=1]
 [ext_resource path="res://styles/button/button_hover.tres" type="StyleBox" id=2]
 [ext_resource path="res://styles/button/button_pressed.tres" type="StyleBox" id=3]
-[ext_resource path="res://styles/button/button_normal.tres" type="StyleBox" id=4]
+[ext_resource path="res://button_normal.tres" type="StyleBox" id=4]
 [ext_resource path="res://assets/texture/checker.png" type="Texture" id=5]
 [ext_resource path="res://temp/ass.png" type="Texture" id=6]
+[ext_resource path="res://src/Creator/Settings.gd" type="Script" id=7]
 [ext_resource path="res://src/Creator/Conductor.gd" type="Script" id=8]
 [ext_resource path="res://src/Creator/Creator.gd" type="Script" id=9]
 [ext_resource path="res://src/Creator/Preview/Animation.gd" type="Script" id=10]
 [ext_resource path="res://src/Creator/FileDialog.gd" type="Script" id=11]
+[ext_resource path="res://src/Creator/Timeline/Timeline.gd" type="Script" id=12]
+[ext_resource path="res://src/Creator/Playback.gd" type="Script" id=13]
+[ext_resource path="res://src/Creator/Timeline/Export.gd" type="Script" id=14]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.176471, 0.176471, 0.176471, 1 )
@@ -35,6 +39,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 9 )
 __meta__ = {
+"_edit_group_": true,
 "_edit_use_anchors_": false
 }
 
@@ -64,6 +69,7 @@ __meta__ = {
 }
 
 [node name="Main" type="Control" parent="."]
+visible = false
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -74,44 +80,17 @@ __meta__ = {
 
 [node name="Fields" type="VBoxContainer" parent="Main"]
 margin_left = 24.0
-margin_top = 48.0
+margin_top = 32.0
 margin_right = 336.0
-margin_bottom = 448.0
+margin_bottom = 432.0
 custom_constants/separation = 6
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Song" type="HBoxContainer" parent="Main/Fields"]
-margin_right = 312.0
-margin_bottom = 25.0
-rect_min_size = Vector2( 0, 25 )
-alignment = 1
-
-[node name="LineEdit" type="LineEdit" parent="Main/Fields/Song"]
-margin_right = 208.0
-margin_bottom = 25.0
-size_flags_horizontal = 3
-custom_styles/read_only = SubResource( 1 )
-custom_styles/normal = ExtResource( 1 )
-align = 1
-editable = false
-placeholder_text = "Load Song"
-
-[node name="LoadSong" type="Button" parent="Main/Fields/Song"]
-margin_left = 212.0
-margin_right = 312.0
-margin_bottom = 25.0
-rect_min_size = Vector2( 100, 0 )
-custom_styles/hover = ExtResource( 2 )
-custom_styles/pressed = ExtResource( 3 )
-custom_styles/normal = ExtResource( 4 )
-text = "Load"
-
 [node name="Image" type="HBoxContainer" parent="Main/Fields"]
-margin_top = 31.0
 margin_right = 312.0
-margin_bottom = 56.0
+margin_bottom = 25.0
 rect_min_size = Vector2( 0, 25 )
 alignment = 1
 
@@ -136,7 +115,7 @@ custom_styles/normal = ExtResource( 4 )
 text = "Load"
 
 [node name="Preview" type="Node2D" parent="Main"]
-position = Vector2( 504, 248 )
+position = Vector2( 496, 232 )
 scale = Vector2( 2, 2 )
 __meta__ = {
 "_edit_group_": true
@@ -150,28 +129,215 @@ scale = Vector2( 0.25, 0.25 )
 texture = ExtResource( 6 )
 hframes = 3
 vframes = 2
-frame = 5
 script = ExtResource( 10 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Main/Preview/Animation"]
-autoplay = "loop"
-playback_speed = 2.0
 anims/loop = SubResource( 2 )
 
-[node name="Settings" type="VBoxContainer" parent="Main"]
-margin_left = 672.0
-margin_top = 48.0
-margin_right = 896.0
-margin_bottom = 208.0
+[node name="Timeline" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 12 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="SpinBox" type="SpinBox" parent="Main/Settings"]
-margin_right = 224.0
+[node name="TimelineBG" type="Panel" parent="Timeline"]
+margin_left = 160.0
+margin_top = 200.0
+margin_right = 864.0
+margin_bottom = 568.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Cont" type="ScrollContainer" parent="Timeline"]
+margin_left = 160.0
+margin_top = 200.0
+margin_right = 864.0
+margin_bottom = 568.0
+scroll_horizontal_enabled = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Line" type="GridContainer" parent="Timeline/Cont"]
+columns = 16
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Timeline"]
+margin_left = 160.0
+margin_top = 160.0
+margin_right = 294.0
+margin_bottom = 174.0
+text = "Selected Beat : None"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label3" type="Label" parent="Timeline"]
+margin_left = 160.0
+margin_top = 176.0
+margin_right = 299.0
+margin_bottom = 190.0
+text = "Selected Node : None"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label2" type="Label" parent="Timeline"]
+margin_left = 160.0
+margin_top = 144.0
+margin_right = 294.0
+margin_bottom = 158.0
+text = "Page : 1"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Song" type="HBoxContainer" parent="Timeline"]
+margin_left = 552.0
+margin_top = 160.0
+margin_right = 864.0
+margin_bottom = 185.0
+rect_min_size = Vector2( 0, 25 )
+alignment = 1
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="LineEdit" type="LineEdit" parent="Timeline/Song"]
+margin_right = 208.0
+margin_bottom = 25.0
+size_flags_horizontal = 3
+custom_styles/read_only = SubResource( 1 )
+custom_styles/normal = ExtResource( 1 )
+align = 1
+editable = false
+placeholder_text = "Load Song"
+
+[node name="LoadSong" type="Button" parent="Timeline/Song"]
+margin_left = 212.0
+margin_right = 312.0
+margin_bottom = 25.0
+rect_min_size = Vector2( 100, 0 )
+custom_styles/hover = ExtResource( 2 )
+custom_styles/pressed = ExtResource( 3 )
+custom_styles/normal = ExtResource( 4 )
+text = "Load"
+
+[node name="Settings" type="VBoxContainer" parent="Timeline"]
+margin_left = 552.0
+margin_top = 96.0
+margin_right = 864.0
+margin_bottom = 148.0
+script = ExtResource( 7 )
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Bpm" type="HBoxContainer" parent="Timeline/Settings"]
+margin_right = 312.0
 margin_bottom = 24.0
 
+[node name="Panel" type="Panel" parent="Timeline/Settings/Bpm"]
+margin_right = 100.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 100, 0 )
+
+[node name="Label" type="Label" parent="Timeline/Settings/Bpm/Panel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "BPM"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SpinBox" type="SpinBox" parent="Timeline/Settings/Bpm"]
+margin_left = 104.0
+margin_right = 312.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+value = 100.0
+allow_greater = true
+
+[node name="LoopSpeed" type="HBoxContainer" parent="Timeline/Settings"]
+margin_top = 28.0
+margin_right = 312.0
+margin_bottom = 52.0
+
+[node name="Panel" type="Panel" parent="Timeline/Settings/LoopSpeed"]
+margin_right = 100.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 100, 0 )
+
+[node name="Label" type="Label" parent="Timeline/Settings/LoopSpeed/Panel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "Loop Speed"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SpinBox" type="SpinBox" parent="Timeline/Settings/LoopSpeed"]
+margin_left = 104.0
+margin_right = 312.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+max_value = 5.0
+step = 0.1
+value = 1.0
+allow_greater = true
+
+[node name="Playback" type="VBoxContainer" parent="Timeline"]
+margin_left = 8.0
+margin_top = 200.0
+margin_right = 152.0
+margin_bottom = 244.0
+script = ExtResource( 13 )
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Play" type="Button" parent="Timeline/Playback"]
+margin_right = 144.0
+margin_bottom = 20.0
+rect_pivot_offset = Vector2( 96, 30 )
+text = "Play"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Stop" type="Button" parent="Timeline/Playback"]
+margin_top = 24.0
+margin_right = 144.0
+margin_bottom = 44.0
+rect_pivot_offset = Vector2( 96, 30 )
+text = "Stop"
+
+[node name="Export" type="Button" parent="Timeline"]
+margin_left = 872.0
+margin_top = 536.0
+margin_right = 1016.0
+margin_bottom = 568.0
+text = "Export"
+script = ExtResource( 14 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="Conductor" type="AudioStreamPlayer" parent="."]
+volume_db = -10.0
 autoplay = true
 script = ExtResource( 8 )
 
@@ -187,6 +353,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[connection signal="button_up" from="Main/Fields/Song/LoadSong" to="FileDialog" method="get_file" binds= [ 0 ]]
 [connection signal="button_up" from="Main/Fields/Image/LoadImage" to="FileDialog" method="get_file" binds= [ 1 ]]
+[connection signal="button_up" from="Timeline/Song/LoadSong" to="FileDialog" method="get_file" binds= [ 0 ]]
+[connection signal="beat" from="Conductor" to="Timeline" method="_on_beat"]
 [connection signal="beat" from="Conductor" to="Main/Preview/Animation" method="loop"]

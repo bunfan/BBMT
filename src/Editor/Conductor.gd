@@ -4,9 +4,12 @@ var song_position = 0
 var beat = 0
 var last_beat = 0
 
-signal beat(current_beat)
+onready var transitions = get_node('/root/Editor/Tabs/Transitions')
 
-onready var timeline = get_node('/root/Creator/Timeline/')
+func _ready():
+	var _err = connect("beat", transitions, "_on_beat")
+
+signal beat(current_beat)
 
 func _process(_delta):
 		
@@ -27,15 +30,9 @@ func _process(_delta):
 			Data.current_beat = beat
 			emit_signal("beat", beat)
 			print(Data.current_beat)
-
-func update_song(path):
-	reset()
 	
-	stream = load(path)
-	Data.song_length = int(stream.get_length() / ((60.0/Data.bpm) * 0.5))
-	print(Data.song_length)
-	timeline.draw_nodes()
-
 func reset():
 	song_position = 0
 	last_beat = 0
+
+

@@ -1,5 +1,7 @@
 extends Sprite
 
+func _ready():
+	$AnimationPlayer.playback_speed = Data.loop_speed * 2
 
 func loop(beat):
 	if beat % 2 == 0:
