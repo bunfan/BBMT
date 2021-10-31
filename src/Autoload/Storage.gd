@@ -9,6 +9,9 @@ var selected_node: Node
 var current_beat = 0.0
 var bpm: float = 128
 var loop_speed: float = 1
+var frame_rate_anim = 'loop_6'
 
 var song_length: int = 0
 var written_notes = []
+
+var dialog_path = 'res://'

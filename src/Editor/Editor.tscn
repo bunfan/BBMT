@@ -1,12 +1,16 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://src/Editor/Editor.gd" type="Script" id=1]
-[ext_resource path="res://src/Editor/Importer/Importer.gd" type="Script" id=2]
+[ext_resource path="res://src/Editor/Importer/SettingsAssets.gd" type="Script" id=2]
 [ext_resource path="res://assets/font/HelvetiPixel.ttf" type="DynamicFontData" id=3]
 [ext_resource path="res://src/Editor/Conductor.gd" type="Script" id=4]
 [ext_resource path="res://assets/texture/checker.png" type="Texture" id=5]
 [ext_resource path="res://styles/Editor_Theme.tres" type="Theme" id=6]
-[ext_resource path="res://src/Editor/Transitions.gd" type="Script" id=7]
+[ext_resource path="res://src/Editor/Transitions/Transitions.gd" type="Script" id=7]
+[ext_resource path="res://assets/ui/bamborg.png" type="Texture" id=8]
+[ext_resource path="res://assets/ui/ploos.png" type="Texture" id=9]
+[ext_resource path="res://styles/fonts/pixel.tres" type="DynamicFont" id=10]
+[ext_resource path="res://src/Editor/Importer/Importer.gd" type="Script" id=11]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.0392157, 0.0392157, 0.0392157, 1 )
@@ -16,36 +20,33 @@ bg_color = Color( 0, 0, 0, 1 )
 
 [sub_resource type="StyleBoxFlat" id=3]
 bg_color = Color( 0, 0, 0, 1 )
+
+[sub_resource type="DynamicFont" id=4]
+size = 24
+font_data = ExtResource( 3 )
+
+[sub_resource type="StyleBoxFlat" id=5]
+bg_color = Color( 0, 0, 0, 1 )
+
+[sub_resource type="StyleBoxFlat" id=6]
+bg_color = Color( 0, 0, 0, 1 )
 border_width_left = 2
 border_width_top = 2
 border_width_right = 2
 border_width_bottom = 2
-border_color = Color( 1, 1, 1, 1 )
-
-[sub_resource type="StyleBoxFlat" id=4]
-bg_color = Color( 0.886275, 0.886275, 0.886275, 1 )
-
-[sub_resource type="StyleBoxFlat" id=5]
-bg_color = Color( 0.639216, 0.639216, 0.639216, 1 )
-
-[sub_resource type="StyleBoxFlat" id=6]
-bg_color = Color( 1, 1, 1, 1 )
+border_color = Color( 0.12549, 0.12549, 0.12549, 1 )
 
 [sub_resource type="StyleBoxFlat" id=7]
-bg_color = Color( 0, 0, 0, 1 )
+bg_color = Color( 1, 1, 1, 1 )
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
 
-[sub_resource type="DynamicFont" id=8]
-size = 24
-font_data = ExtResource( 3 )
-
-[sub_resource type="StyleBoxFlat" id=9]
+[sub_resource type="StyleBoxFlat" id=8]
 bg_color = Color( 0.0941176, 0.0941176, 0.101961, 1 )
 
-[sub_resource type="StyleBoxFlat" id=14]
-bg_color = Color( 0.0352941, 0.0352941, 0.0352941, 1 )
-
-[sub_resource type="Animation" id=10]
-loop = true
+[sub_resource type="Animation" id=9]
 step = 0.166667
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:frame")
@@ -60,24 +61,6 @@ tracks/0/keys = {
 "values": [ 0, 1, 2, 3, 4, 5 ]
 }
 
-[sub_resource type="StyleBoxFlat" id=11]
-bg_color = Color( 0, 0, 0, 1 )
-
-[sub_resource type="StyleBoxFlat" id=13]
-bg_color = Color( 0, 0, 0, 1 )
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color( 0.12549, 0.12549, 0.12549, 1 )
-
-[sub_resource type="StyleBoxFlat" id=12]
-bg_color = Color( 1, 1, 1, 1 )
-corner_radius_top_left = 1
-corner_radius_top_right = 1
-corner_radius_bottom_right = 1
-corner_radius_bottom_left = 1
-
 [node name="Editor" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -87,38 +70,41 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Background" type="Panel" parent="."]
+[node name="Global" type="Control" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_top = 64.0
-margin_bottom = -48.0
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Background" type="Panel" parent="Global"]
+anchor_right = 1.0
+anchor_bottom = 1.0
 custom_styles/panel = SubResource( 1 )
 __meta__ = {
-"_edit_lock_": true,
 "_edit_use_anchors_": false
 }
 
-[node name="Header" type="Panel" parent="."]
+[node name="Header" type="Panel" parent="Global"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_bottom = -534.0
+margin_bottom = -536.0
 custom_styles/panel = SubResource( 2 )
 __meta__ = {
-"_edit_lock_": true,
 "_edit_use_anchors_": false
 }
 
-[node name="TabButtons" type="HBoxContainer" parent="."]
+[node name="TabButtons" type="HBoxContainer" parent="Global"]
 anchor_right = 1.0
 margin_top = 16.0
 margin_bottom = 48.0
 alignment = 1
 __meta__ = {
-"_edit_lock_": true,
 "_edit_use_anchors_": false
 }
 
-[node name="Assets" type="Button" parent="TabButtons"]
+[node name="Assets" type="Button" parent="Global/TabButtons"]
 margin_left = 306.0
 margin_right = 406.0
 margin_bottom = 32.0
@@ -126,7 +112,7 @@ rect_min_size = Vector2( 100, 0 )
 theme = ExtResource( 6 )
 text = "Assets"
 
-[node name="Transitions" type="Button" parent="TabButtons"]
+[node name="Transitions" type="Button" parent="Global/TabButtons"]
 margin_left = 410.0
 margin_right = 510.0
 margin_bottom = 32.0
@@ -134,7 +120,7 @@ rect_min_size = Vector2( 100, 0 )
 theme = ExtResource( 6 )
 text = "Transitions"
 
-[node name="Timeline" type="Button" parent="TabButtons"]
+[node name="Timeline" type="Button" parent="Global/TabButtons"]
 margin_left = 514.0
 margin_right = 614.0
 margin_bottom = 32.0
@@ -142,7 +128,7 @@ rect_min_size = Vector2( 100, 0 )
 theme = ExtResource( 6 )
 text = "Timeline"
 
-[node name="Export" type="Button" parent="TabButtons"]
+[node name="Export" type="Button" parent="Global/TabButtons"]
 margin_left = 618.0
 margin_right = 718.0
 margin_bottom = 32.0
@@ -150,189 +136,23 @@ rect_min_size = Vector2( 100, 0 )
 theme = ExtResource( 6 )
 text = "Export"
 
-[node name="Tabs" type="Control" parent="."]
-margin_top = 66.0
-margin_right = 1024.0
-margin_bottom = 552.0
-__meta__ = {
-"_edit_lock_": true,
-"_edit_use_anchors_": false
-}
-
-[node name="Importer" type="Control" parent="Tabs"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_top = -2.0
-script = ExtResource( 2 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Sections" type="HBoxContainer" parent="Tabs/Importer"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 344.0
-margin_top = 40.0
-margin_right = -10.0
-margin_bottom = -406.0
-size_flags_vertical = 0
-custom_constants/separation = 5
-__meta__ = {
-"_edit_group_": true,
-"_edit_use_anchors_": false
-}
-
-[node name="Animations" type="Panel" parent="Tabs/Importer/Sections"]
-margin_right = 220.0
-margin_bottom = 42.0
-rect_min_size = Vector2( 220, 42 )
-rect_pivot_offset = Vector2( -337, 48 )
-custom_styles/panel = SubResource( 3 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Title" type="Label" parent="Tabs/Importer/Sections/Animations"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_right = -85.0
-text = "Animations"
-align = 1
-valign = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="AddButton" type="Button" parent="Tabs/Importer/Sections/Animations"]
-margin_left = 135.0
-margin_right = 220.0
-margin_bottom = 42.0
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/normal = SubResource( 6 )
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
-custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
-text = "ADD"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Assets" type="VBoxContainer" parent="Tabs/Importer/Sections/Animations"]
-margin_top = 52.0
-margin_right = 220.0
-margin_bottom = 342.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Effects" type="Panel" parent="Tabs/Importer/Sections"]
-margin_left = 225.0
-margin_right = 445.0
-margin_bottom = 42.0
-rect_min_size = Vector2( 220, 42 )
-rect_pivot_offset = Vector2( -337, 48 )
-custom_styles/panel = SubResource( 3 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Title" type="Label" parent="Tabs/Importer/Sections/Effects"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_right = -85.0
-text = "Effects"
-align = 1
-valign = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="AddButton" type="Button" parent="Tabs/Importer/Sections/Effects"]
-margin_left = 135.0
-margin_right = 220.0
-margin_bottom = 42.0
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/normal = SubResource( 6 )
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
-custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
-text = "ADD"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Assets" type="VBoxContainer" parent="Tabs/Importer/Sections/Effects"]
-margin_top = 52.0
-margin_right = 220.0
-margin_bottom = 342.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="SoundFX" type="Panel" parent="Tabs/Importer/Sections"]
-margin_left = 450.0
-margin_right = 670.0
-margin_bottom = 42.0
-rect_min_size = Vector2( 220, 42 )
-rect_pivot_offset = Vector2( -337, 48 )
-custom_styles/panel = SubResource( 3 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Title" type="Label" parent="Tabs/Importer/Sections/SoundFX"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_right = -85.0
-text = "Sound FX"
-align = 1
-valign = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="AddButton" type="Button" parent="Tabs/Importer/Sections/SoundFX"]
-margin_left = 135.0
-margin_right = 220.0
-margin_bottom = 42.0
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/normal = SubResource( 6 )
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
-custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
-text = "ADD"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Assets" type="VBoxContainer" parent="Tabs/Importer/Sections/SoundFX"]
-margin_top = 52.0
-margin_right = 220.0
-margin_bottom = 342.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Header" type="Panel" parent="Tabs/Importer"]
+[node name="Header2" type="Panel" parent="Global"]
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-margin_top = -244.0
-margin_bottom = -220.0
-custom_styles/panel = SubResource( 7 )
+margin_top = -236.0
+margin_bottom = -212.0
+custom_styles/panel = SubResource( 3 )
 __meta__ = {
 "_edit_group_": true,
 "_edit_lock_": true,
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="Tabs/Importer/Header"]
+[node name="Label" type="Label" parent="Global/Header2"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-custom_fonts/font = SubResource( 8 )
+custom_fonts/font = SubResource( 4 )
 text = "Asset Importer"
 align = 1
 valign = 1
@@ -340,16 +160,242 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Settings" type="Panel" parent="Tabs/Importer"]
+[node name="Toolbar" type="Panel" parent="Global"]
+anchor_top = 1.0
+anchor_right = 1.0
 anchor_bottom = 1.0
-margin_top = 24.0
-margin_right = 320.0
-custom_styles/panel = SubResource( 9 )
+margin_top = -48.0
+custom_styles/panel = SubResource( 5 )
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Buttons" type="HBoxContainer" parent="Global/Toolbar"]
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_top = -12.0
+margin_bottom = 12.0
+alignment = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Fields" type="VBoxContainer" parent="Tabs/Importer/Settings"]
+[node name="Play" type="Button" parent="Global/Toolbar/Buttons"]
+margin_left = 462.0
+margin_right = 510.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 48, 24 )
+theme = ExtResource( 6 )
+text = "PLAY"
+
+[node name="Stop" type="Button" parent="Global/Toolbar/Buttons"]
+margin_left = 514.0
+margin_right = 562.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 48, 24 )
+theme = ExtResource( 6 )
+text = "STOP"
+
+[node name="Volume" type="HSlider" parent="Global/Toolbar"]
+margin_left = 616.0
+margin_top = 16.0
+margin_right = 1008.0
+margin_bottom = 32.0
+custom_styles/slider = SubResource( 6 )
+custom_styles/grabber_area_highlight = SubResource( 7 )
+custom_styles/grabber_area = SubResource( 7 )
+min_value = -40.0
+max_value = 0.0
+step = 10.0
+value = -10.0
+ticks_on_borders = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Tabs" type="Control" parent="."]
+margin_top = 88.0
+margin_right = 1024.0
+margin_bottom = 552.0
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="SettingsAssets" type="Control" parent="Tabs"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -3.12244
+margin_bottom = -1.12244
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Importer" type="HBoxContainer" parent="Tabs/SettingsAssets"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 338.0
+margin_top = 17.0
+margin_right = -19.0
+margin_bottom = -18.0
+size_flags_vertical = 0
+custom_constants/separation = 20
+alignment = 1
+script = ExtResource( 11 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SpriteSheets" type="Panel" parent="Tabs/SettingsAssets/Importer"]
+margin_left = 3.0
+margin_right = 323.0
+margin_bottom = 431.0
+rect_min_size = Vector2( 320, 0 )
+theme = ExtResource( 6 )
+
+[node name="Bar" type="Control" parent="Tabs/SettingsAssets/Importer/SpriteSheets"]
+anchor_right = 1.0
+margin_left = 13.0
+margin_top = 9.0
+margin_right = -14.0
+margin_bottom = 25.0
+rect_min_size = Vector2( 0, 16 )
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Sort" type="TextureButton" parent="Tabs/SettingsAssets/Importer/SpriteSheets/Bar"]
+margin_right = 16.0
+margin_bottom = 16.0
+rect_min_size = Vector2( 16, 16 )
+texture_normal = ExtResource( 8 )
+expand = true
+stretch_mode = 5
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Plus" type="TextureButton" parent="Tabs/SettingsAssets/Importer/SpriteSheets/Bar"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -16.0
+margin_bottom = 16.0
+rect_min_size = Vector2( 16, 16 )
+texture_normal = ExtResource( 9 )
+expand = true
+stretch_mode = 5
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Tabs/SettingsAssets/Importer/SpriteSheets/Bar"]
+anchor_right = 1.0
+margin_bottom = 18.0
+rect_min_size = Vector2( 0, 16 )
+custom_fonts/font = ExtResource( 10 )
+text = "Sprite Sheets"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Thumbs" type="GridContainer" parent="Tabs/SettingsAssets/Importer/SpriteSheets"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -146.0
+margin_top = -173.5
+margin_right = 146.0
+margin_bottom = 186.5
+custom_constants/vseparation = 14
+columns = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Audio" type="Panel" parent="Tabs/SettingsAssets/Importer"]
+margin_left = 343.0
+margin_right = 663.0
+margin_bottom = 431.0
+rect_min_size = Vector2( 320, 0 )
+theme = ExtResource( 6 )
+
+[node name="Bar" type="Control" parent="Tabs/SettingsAssets/Importer/Audio"]
+anchor_right = 1.0
+margin_left = 13.0
+margin_top = 9.0
+margin_right = -14.0
+margin_bottom = 25.0
+rect_min_size = Vector2( 0, 16 )
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Sort" type="TextureButton" parent="Tabs/SettingsAssets/Importer/Audio/Bar"]
+margin_right = 16.0
+margin_bottom = 16.0
+rect_min_size = Vector2( 16, 16 )
+texture_normal = ExtResource( 8 )
+expand = true
+stretch_mode = 5
+
+[node name="Plus" type="TextureButton" parent="Tabs/SettingsAssets/Importer/Audio/Bar"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -16.0
+margin_bottom = 16.0
+rect_min_size = Vector2( 16, 16 )
+texture_normal = ExtResource( 9 )
+expand = true
+stretch_mode = 5
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Tabs/SettingsAssets/Importer/Audio/Bar"]
+anchor_right = 1.0
+margin_bottom = 18.0
+rect_min_size = Vector2( 0, 16 )
+custom_fonts/font = ExtResource( 10 )
+text = "Audio"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Thumbs" type="GridContainer" parent="Tabs/SettingsAssets/Importer/Audio"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -146.0
+margin_top = -173.5
+margin_right = 146.0
+margin_bottom = 186.5
+custom_constants/vseparation = 14
+columns = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Settings" type="Panel" parent="Tabs/SettingsAssets"]
+anchor_bottom = 1.0
+margin_top = 2.0
+margin_right = 320.0
+custom_styles/panel = SubResource( 8 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Fields" type="VBoxContainer" parent="Tabs/SettingsAssets/Settings"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 24.0
@@ -360,64 +406,6 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Music" type="HBoxContainer" parent="Tabs/Importer/Settings/Fields"]
-margin_right = 272.0
-margin_bottom = 24.0
-rect_min_size = Vector2( 0, 24 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="LineEdit" type="LineEdit" parent="Tabs/Importer/Settings/Fields/Music"]
-margin_right = 188.0
-margin_bottom = 24.0
-size_flags_horizontal = 3
-theme = ExtResource( 6 )
-align = 1
-editable = false
-placeholder_text = "Load Music"
-
-[node name="Button" type="Button" parent="Tabs/Importer/Settings/Fields/Music"]
-margin_left = 192.0
-margin_right = 272.0
-margin_bottom = 24.0
-rect_min_size = Vector2( 80, 0 )
-theme = ExtResource( 6 )
-text = "Load"
-
-[node name="Bpm" type="HBoxContainer" parent="Tabs/Importer/Settings/Fields"]
-margin_top = 28.0
-margin_right = 272.0
-margin_bottom = 58.0
-rect_min_size = Vector2( 0, 30 )
-
-[node name="Panel" type="Panel" parent="Tabs/Importer/Settings/Fields/Bpm"]
-margin_right = 80.0
-margin_bottom = 30.0
-rect_min_size = Vector2( 80, 0 )
-
-[node name="Label" type="Label" parent="Tabs/Importer/Settings/Fields/Bpm/Panel"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-custom_styles/normal = SubResource( 14 )
-text = "BPM"
-align = 1
-valign = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Input" type="SpinBox" parent="Tabs/Importer/Settings/Fields/Bpm"]
-margin_left = 84.0
-margin_right = 272.0
-margin_bottom = 30.0
-size_flags_horizontal = 3
-theme = ExtResource( 6 )
-max_value = 200.0
-value = 128.0
-allow_greater = true
-align = 1
-
 [node name="Transitions" type="Control" parent="Tabs"]
 visible = false
 anchor_right = 1.0
@@ -425,15 +413,17 @@ anchor_bottom = 1.0
 margin_top = -2.0
 script = ExtResource( 7 )
 __meta__ = {
+"_edit_lock_": true,
 "_edit_use_anchors_": false
 }
 
 [node name="Preview" type="Sprite" parent="Tabs/Transitions"]
-position = Vector2( 832, 264 )
+position = Vector2( 840, 234 )
 scale = Vector2( 2, 2 )
 texture = ExtResource( 5 )
 __meta__ = {
-"_edit_group_": true
+"_edit_group_": true,
+"_edit_lock_": true
 }
 
 [node name="SpriteSheet" type="Sprite" parent="Tabs/Transitions/Preview"]
@@ -443,20 +433,20 @@ hframes = 3
 vframes = 2
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Tabs/Transitions/Preview/SpriteSheet"]
-autoplay = "loop_6"
-anims/loop_6 = SubResource( 10 )
+anims/loop_6 = SubResource( 9 )
 
 [node name="AssetSelectors" type="VBoxContainer" parent="Tabs/Transitions"]
-margin_left = 64.0
-margin_top = 64.0
-margin_right = 256.0
-margin_bottom = 192.0
+margin_left = 112.0
+margin_top = 82.0
+margin_right = 312.0
+margin_bottom = 210.0
 __meta__ = {
+"_edit_group_": true,
 "_edit_use_anchors_": false
 }
 
 [node name="AnimationOption" type="OptionButton" parent="Tabs/Transitions/AssetSelectors"]
-margin_right = 192.0
+margin_right = 200.0
 margin_bottom = 40.0
 rect_min_size = Vector2( 0, 40 )
 theme = ExtResource( 6 )
@@ -468,7 +458,7 @@ __meta__ = {
 
 [node name="EffectsOption" type="OptionButton" parent="Tabs/Transitions/AssetSelectors"]
 margin_top = 44.0
-margin_right = 192.0
+margin_right = 200.0
 margin_bottom = 84.0
 rect_min_size = Vector2( 0, 40 )
 theme = ExtResource( 6 )
@@ -480,7 +470,7 @@ __meta__ = {
 
 [node name="SfxOption" type="OptionButton" parent="Tabs/Transitions/AssetSelectors"]
 margin_top = 88.0
-margin_right = 192.0
+margin_right = 200.0
 margin_bottom = 128.0
 rect_min_size = Vector2( 0, 40 )
 theme = ExtResource( 6 )
@@ -490,26 +480,13 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Header" type="Panel" parent="Tabs/Transitions"]
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-margin_top = -244.0
-margin_bottom = -220.0
-custom_styles/panel = SubResource( 7 )
-__meta__ = {
-"_edit_group_": true,
-"_edit_lock_": true,
-"_edit_use_anchors_": false
-}
-
-[node name="Label" type="Label" parent="Tabs/Transitions/Header"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-custom_fonts/font = SubResource( 8 )
-text = "Transition Editor"
-align = 1
-valign = 1
+[node name="CreateTransition" type="Button" parent="Tabs/Transitions"]
+margin_left = 432.0
+margin_top = 122.0
+margin_right = 608.0
+margin_bottom = 162.0
+theme = ExtResource( 6 )
+text = "Create Transition"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -523,33 +500,116 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="Tabs/Timeline"]
+[node name="MarginContainer" type="MarginContainer" parent="Tabs/Timeline"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-text = "TIMELINE GO HERE"
+custom_constants/margin_right = 10
+custom_constants/margin_top = 10
+custom_constants/margin_left = 10
+custom_constants/margin_bottom = 10
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Rows" type="VBoxContainer" parent="Tabs/Timeline/MarginContainer"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 1014.0
+margin_bottom = 456.0
+custom_constants/separation = 10
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Top" type="HBoxContainer" parent="Tabs/Timeline/MarginContainer/Rows"]
+margin_right = 1004.0
+margin_bottom = 218.0
+rect_min_size = Vector2( 0, 218 )
+custom_constants/separation = 10
+
+[node name="Tools" type="Panel" parent="Tabs/Timeline/MarginContainer/Rows/Top"]
+margin_right = 191.0
+margin_bottom = 218.0
+size_flags_horizontal = 3
+theme = ExtResource( 6 )
+
+[node name="Label" type="Label" parent="Tabs/Timeline/MarginContainer/Rows/Top/Tools"]
+anchor_right = 1.0
+margin_bottom = 14.0
+text = "Tools"
 align = 1
 valign = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Header" type="Panel" parent="Tabs/Timeline"]
-anchor_top = 0.5
+[node name="Preview" type="Panel" parent="Tabs/Timeline/MarginContainer/Rows/Top"]
+margin_left = 201.0
+margin_right = 601.0
+margin_bottom = 218.0
+rect_min_size = Vector2( 400, 0 )
+size_flags_horizontal = 3
+theme = ExtResource( 6 )
+
+[node name="Label" type="Label" parent="Tabs/Timeline/MarginContainer/Rows/Top/Preview"]
 anchor_right = 1.0
-anchor_bottom = 0.5
-margin_top = -244.0
-margin_bottom = -220.0
-custom_styles/panel = SubResource( 7 )
+margin_bottom = 14.0
+text = "Preview"
+align = 1
+valign = 1
 __meta__ = {
-"_edit_group_": true,
-"_edit_lock_": true,
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="Tabs/Timeline/Header"]
+[node name="Color" type="Panel" parent="Tabs/Timeline/MarginContainer/Rows/Top"]
+margin_left = 611.0
+margin_right = 802.0
+margin_bottom = 218.0
+size_flags_horizontal = 3
+theme = ExtResource( 6 )
+
+[node name="Label" type="Label" parent="Tabs/Timeline/MarginContainer/Rows/Top/Color"]
 anchor_right = 1.0
-anchor_bottom = 1.0
-custom_fonts/font = SubResource( 8 )
+margin_bottom = 14.0
+text = "Note Colors"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Info2" type="Panel" parent="Tabs/Timeline/MarginContainer/Rows/Top"]
+margin_left = 812.0
+margin_right = 1004.0
+margin_bottom = 218.0
+size_flags_horizontal = 3
+theme = ExtResource( 6 )
+
+[node name="Label" type="Label" parent="Tabs/Timeline/MarginContainer/Rows/Top/Info2"]
+anchor_right = 1.0
+margin_bottom = 14.0
+text = "Song Info"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Bottom" type="HBoxContainer" parent="Tabs/Timeline/MarginContainer/Rows"]
+margin_top = 228.0
+margin_right = 1004.0
+margin_bottom = 446.0
+rect_min_size = Vector2( 0, 218 )
+
+[node name="Panel" type="Panel" parent="Tabs/Timeline/MarginContainer/Rows/Bottom"]
+margin_right = 1004.0
+margin_bottom = 218.0
+size_flags_horizontal = 3
+theme = ExtResource( 6 )
+
+[node name="Label" type="Label" parent="Tabs/Timeline/MarginContainer/Rows/Bottom/Panel"]
+anchor_right = 1.0
+margin_bottom = 14.0
 text = "Timeline"
 align = 1
 valign = 1
@@ -572,85 +632,6 @@ anchor_bottom = 1.0
 text = "Build and Export options GO HERE"
 align = 1
 valign = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Header" type="Panel" parent="Tabs/Export"]
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-margin_top = -244.0
-margin_bottom = -220.0
-custom_styles/panel = SubResource( 7 )
-__meta__ = {
-"_edit_group_": true,
-"_edit_lock_": true,
-"_edit_use_anchors_": false
-}
-
-[node name="Label" type="Label" parent="Tabs/Export/Header"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-custom_fonts/font = SubResource( 8 )
-text = "Build / Export"
-align = 1
-valign = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Toolbar" type="Panel" parent="."]
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_top = -48.0
-custom_styles/panel = SubResource( 11 )
-__meta__ = {
-"_edit_lock_": true,
-"_edit_use_anchors_": false
-}
-
-[node name="Buttons" type="HBoxContainer" parent="Toolbar"]
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-margin_top = -12.0
-margin_bottom = 12.0
-alignment = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Play" type="Button" parent="Toolbar/Buttons"]
-margin_left = 462.0
-margin_right = 510.0
-margin_bottom = 24.0
-rect_min_size = Vector2( 48, 24 )
-theme = ExtResource( 6 )
-text = "PLAY"
-
-[node name="Stop" type="Button" parent="Toolbar/Buttons"]
-margin_left = 514.0
-margin_right = 562.0
-margin_bottom = 24.0
-rect_min_size = Vector2( 48, 24 )
-theme = ExtResource( 6 )
-text = "STOP"
-
-[node name="Volume" type="HSlider" parent="Toolbar"]
-margin_left = 616.0
-margin_top = 16.0
-margin_right = 1008.0
-margin_bottom = 32.0
-custom_styles/slider = SubResource( 13 )
-custom_styles/grabber_area_highlight = SubResource( 12 )
-custom_styles/grabber_area = SubResource( 12 )
-min_value = -40.0
-max_value = 0.0
-step = 10.0
-value = -10.0
-ticks_on_borders = true
 __meta__ = {
 "_edit_use_anchors_": false
 }

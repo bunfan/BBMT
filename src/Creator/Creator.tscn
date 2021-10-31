@@ -355,5 +355,5 @@ __meta__ = {
 
 [connection signal="button_up" from="Main/Fields/Image/LoadImage" to="FileDialog" method="get_file" binds= [ 1 ]]
 [connection signal="button_up" from="Timeline/Song/LoadSong" to="FileDialog" method="get_file" binds= [ 0 ]]
-[connection signal="beat" from="Conductor" to="Timeline" method="_on_beat"]
 [connection signal="beat" from="Conductor" to="Main/Preview/Animation" method="loop"]
+[connection signal="beat" from="Conductor" to="Timeline" method="_on_beat"]
