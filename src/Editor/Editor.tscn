@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=2]
+[gd_scene load_steps=28 format=2]
 
 [ext_resource path="res://src/Editor/Editor.gd" type="Script" id=1]
 [ext_resource path="res://src/Editor/Importer/SettingsAssets.gd" type="Script" id=2]
@@ -12,6 +12,7 @@
 [ext_resource path="res://styles/fonts/pixel.tres" type="DynamicFont" id=10]
 [ext_resource path="res://src/Editor/Importer/Importer.gd" type="Script" id=11]
 [ext_resource path="res://src/Editor/Parameters.gd" type="Script" id=12]
+[ext_resource path="res://src/Editor/UI/BeatIndicator.gd" type="Script" id=13]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.0392157, 0.0392157, 0.0392157, 1 )
@@ -237,7 +238,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="Global/Toolbar"]
+[node name="BeatIndicator" type="Label" parent="Global/Toolbar"]
 anchor_top = 0.5
 anchor_bottom = 0.5
 margin_left = 23.3345
@@ -247,6 +248,21 @@ margin_bottom = 24.0
 text = "Beat : 0 / 0"
 align = 1
 valign = 1
+script = ExtResource( 13 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Progress" type="HSlider" parent="Global/Toolbar/BeatIndicator"]
+anchor_bottom = 1.0
+margin_left = 120.0
+margin_right = 345.0
+theme = ExtResource( 6 )
+allow_greater = true
+scrollable = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Tabs" type="Control" parent="."]
 margin_top = 88.0
@@ -510,8 +526,6 @@ custom_styles/slider = SubResource( 12 )
 custom_styles/grabber_area = SubResource( 13 )
 max_value = 2.0
 rounded = true
-tick_count = 3
-ticks_on_borders = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -557,6 +571,43 @@ size_flags_horizontal = 3
 theme = ExtResource( 6 )
 text = "None"
 clip_text = true
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Bpm" type="HBoxContainer" parent="Tabs/SettingsAssets/Parameters/Fields"]
+margin_top = 120.0
+margin_right = 272.0
+margin_bottom = 152.0
+custom_constants/separation = 20
+
+[node name="Panel" type="Panel" parent="Tabs/SettingsAssets/Parameters/Fields/Bpm"]
+margin_right = 100.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 100, 32 )
+custom_styles/panel = SubResource( 9 )
+
+[node name="Label" type="Label" parent="Tabs/SettingsAssets/Parameters/Fields/Bpm/Panel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = ExtResource( 10 )
+text = "Bpm"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SpinBox" type="SpinBox" parent="Tabs/SettingsAssets/Parameters/Fields/Bpm"]
+margin_left = 120.0
+margin_right = 272.0
+margin_bottom = 32.0
+size_flags_horizontal = 3
+theme = ExtResource( 6 )
+max_value = 999.0
+value = 128.0
+allow_greater = true
 align = 1
 __meta__ = {
 "_edit_use_anchors_": false

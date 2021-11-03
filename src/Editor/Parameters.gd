@@ -3,6 +3,7 @@ extends Panel
 onready var name_field = $Fields/Name/LineEdit
 onready var framerate_field = $Fields/FrameRate/HSlider
 onready var song_field = $Fields/Song/OptionButton
+onready var bpm_field = $Fields/Bpm/SpinBox
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -10,6 +11,7 @@ func _ready():
 	framerate_field.connect("value_changed", self, "set_framerate")
 	song_field.connect("button_up", self, "get_audio_list")
 	song_field.connect("item_selected", self, "load_song")
+	bpm_field.connect("value_changed", self, "set_bpm")
 
 # Name Field
 func set_name(text: String):
@@ -34,3 +36,6 @@ func get_audio_list():
 func load_song(idx):
 	Data.conductor.reset()
 	Data.conductor.stream = Assets.audio[song_field.get_item_text(idx)]
+
+func set_bpm(value: float):
+	Data.bpm = value

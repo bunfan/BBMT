@@ -31,7 +31,6 @@ func _process(_delta):
 func _on_beat():
 	last_beat = beat
 	Data.current_beat = beat
-	print(Data.current_beat)
 	
 func reset():
 	song_position = 0
