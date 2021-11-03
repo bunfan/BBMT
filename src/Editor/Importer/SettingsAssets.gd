@@ -2,15 +2,10 @@ extends Control
 
 onready var conductor = get_node('/root/Editor/Conductor')
 
-onready var music = $Settings/Fields/Music
-onready var bpm = $Settings/Fields/Bpm
-onready var loop_speed = $Settings/Fields/LoopSpeed
-
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass
-
-
+	
 # Add asset object to array
 func add_asset(section, idx):
 	print("Opening %s" % section)

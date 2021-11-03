@@ -1,6 +1,5 @@
 extends Node
 
-
 var mod_path = OS.get_user_data_dir() + "/mods"
 
 var selected_beat: int = 0
@@ -15,3 +14,10 @@ var song_length: int = 0
 var written_notes = []
 
 var dialog_path = 'res://'
+
+# Configuration Variables
+var stage_name: String
+var framerate: int
+
+# Node Storage
+var conductor: AudioStreamPlayer

@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=27 format=2]
 
 [ext_resource path="res://src/Editor/Editor.gd" type="Script" id=1]
 [ext_resource path="res://src/Editor/Importer/SettingsAssets.gd" type="Script" id=2]
@@ -11,6 +11,7 @@
 [ext_resource path="res://assets/ui/ploos.png" type="Texture" id=9]
 [ext_resource path="res://styles/fonts/pixel.tres" type="DynamicFont" id=10]
 [ext_resource path="res://src/Editor/Importer/Importer.gd" type="Script" id=11]
+[ext_resource path="res://src/Editor/Parameters.gd" type="Script" id=12]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.0392157, 0.0392157, 0.0392157, 1 )
@@ -46,7 +47,28 @@ corner_radius_bottom_left = 1
 [sub_resource type="StyleBoxFlat" id=8]
 bg_color = Color( 0.0941176, 0.0941176, 0.101961, 1 )
 
-[sub_resource type="Animation" id=9]
+[sub_resource type="StyleBoxFlat" id=9]
+bg_color = Color( 0, 0, 0, 1 )
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id=10]
+bg_color = Color( 0.6, 0.6, 0.6, 0 )
+border_width_bottom = 2
+border_color = Color( 1, 1, 1, 1 )
+
+[sub_resource type="StyleBoxFlat" id=12]
+border_width_top = 4
+
+[sub_resource type="StyleBoxEmpty" id=13]
+
+[sub_resource type="DynamicFont" id=11]
+size = 34
+font_data = ExtResource( 3 )
+
+[sub_resource type="Animation" id=14]
 step = 0.166667
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:frame")
@@ -214,6 +236,17 @@ ticks_on_borders = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Label" type="Label" parent="Global/Toolbar"]
+anchor_top = 0.5
+anchor_bottom = 0.5
+margin_left = 23.3345
+margin_top = -24.0
+margin_right = 115.335
+margin_bottom = 24.0
+text = "Beat : 0 / 0"
+align = 1
+valign = 1
 
 [node name="Tabs" type="Control" parent="."]
 margin_top = 88.0
@@ -386,22 +419,145 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Settings" type="Panel" parent="Tabs/SettingsAssets"]
+[node name="Parameters" type="Panel" parent="Tabs/SettingsAssets"]
 anchor_bottom = 1.0
 margin_top = 2.0
 margin_right = 320.0
 custom_styles/panel = SubResource( 8 )
+script = ExtResource( 12 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Fields" type="VBoxContainer" parent="Tabs/SettingsAssets/Settings"]
+[node name="Fields" type="VBoxContainer" parent="Tabs/SettingsAssets/Parameters"]
+anchor_left = 0.5
+anchor_top = 0.498858
+anchor_right = 0.5
+anchor_bottom = 0.498858
+margin_left = -137.122
+margin_top = -216.0
+margin_right = 134.878
+margin_bottom = 216.0
+custom_constants/separation = 8
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Name" type="HBoxContainer" parent="Tabs/SettingsAssets/Parameters/Fields"]
+margin_right = 272.0
+margin_bottom = 32.0
+custom_constants/separation = 20
+
+[node name="Panel" type="Panel" parent="Tabs/SettingsAssets/Parameters/Fields/Name"]
+margin_right = 100.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 100, 32 )
+custom_styles/panel = SubResource( 9 )
+
+[node name="Label" type="Label" parent="Tabs/SettingsAssets/Parameters/Fields/Name/Panel"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 24.0
+custom_fonts/font = ExtResource( 10 )
+text = "Stage Name"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LineEdit" type="LineEdit" parent="Tabs/SettingsAssets/Parameters/Fields/Name"]
+margin_left = 120.0
+margin_right = 272.0
+margin_bottom = 32.0
+size_flags_horizontal = 3
+custom_fonts/font = ExtResource( 10 )
+custom_styles/normal = SubResource( 10 )
+align = 2
+placeholder_text = "Enter Name"
+
+[node name="FrameRate" type="HBoxContainer" parent="Tabs/SettingsAssets/Parameters/Fields"]
 margin_top = 40.0
-margin_right = -24.0
-margin_bottom = -16.0
+margin_right = 272.0
+margin_bottom = 72.0
+custom_constants/separation = 20
+
+[node name="Panel" type="Panel" parent="Tabs/SettingsAssets/Parameters/Fields/FrameRate"]
+margin_right = 100.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 100, 32 )
+custom_styles/panel = SubResource( 9 )
+
+[node name="Label" type="Label" parent="Tabs/SettingsAssets/Parameters/Fields/FrameRate/Panel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = ExtResource( 10 )
+text = "Framerate"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HSlider" type="HSlider" parent="Tabs/SettingsAssets/Parameters/Fields/FrameRate"]
+margin_left = 120.0
+margin_right = 239.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 0, 32 )
+size_flags_horizontal = 3
+size_flags_vertical = 2
+theme = ExtResource( 6 )
+custom_styles/slider = SubResource( 12 )
+custom_styles/grabber_area = SubResource( 13 )
+max_value = 2.0
+rounded = true
+tick_count = 3
+ticks_on_borders = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Tabs/SettingsAssets/Parameters/Fields/FrameRate"]
+margin_left = 259.0
+margin_top = 1.0
+margin_right = 272.0
+margin_bottom = 31.0
+custom_fonts/font = SubResource( 11 )
+text = "6"
+align = 1
+valign = 2
+
+[node name="Song" type="HBoxContainer" parent="Tabs/SettingsAssets/Parameters/Fields"]
+margin_top = 80.0
+margin_right = 272.0
+margin_bottom = 112.0
+custom_constants/separation = 20
+
+[node name="Panel" type="Panel" parent="Tabs/SettingsAssets/Parameters/Fields/Song"]
+margin_right = 100.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 100, 32 )
+custom_styles/panel = SubResource( 9 )
+
+[node name="Label" type="Label" parent="Tabs/SettingsAssets/Parameters/Fields/Song/Panel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = ExtResource( 10 )
+text = "Song"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="OptionButton" type="OptionButton" parent="Tabs/SettingsAssets/Parameters/Fields/Song"]
+margin_left = 120.0
+margin_right = 272.0
+margin_bottom = 32.0
+size_flags_horizontal = 3
+theme = ExtResource( 6 )
+text = "None"
+clip_text = true
+align = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -433,7 +589,7 @@ hframes = 3
 vframes = 2
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Tabs/Transitions/Preview/SpriteSheet"]
-anims/loop_6 = SubResource( 9 )
+anims/loop_6 = SubResource( 14 )
 
 [node name="AssetSelectors" type="VBoxContainer" parent="Tabs/Transitions"]
 margin_left = 112.0
