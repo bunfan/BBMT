@@ -45,9 +45,6 @@ func tab_changed(tab_index):
 		$Tabs.get_child(i).visible = false
 	$Tabs.get_child(tab_index).visible = true
 
-	# If the tab is the transition editor
-	if tab_index == 1:
-		$Tabs/Transitions.populate_options()
 
 # When Play or stop is pressed
 func on_playback_button(i):
