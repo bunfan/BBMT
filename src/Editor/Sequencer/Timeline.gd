@@ -5,7 +5,7 @@ extends Panel
 
 onready var note_container = $Scroll/Notes
 
-var notes_in_timeline = []
+var physical_notes = []
 
 var note_types = {
 	90:0,
@@ -27,8 +27,8 @@ func draw_notes():
 	for note in note_container.get_children():
 		note.queue_free()
 
-	# Clears all note references from the "notes_in_timeline" array
-	notes_in_timeline.clear()
+	# Clears all note references from the "physical_notes" array
+	physical_notes.clear()
 
 	for i in Data.song_length_beats + 1:
 
@@ -57,7 +57,7 @@ func draw_notes():
 		panel.add_child(label)
 
 		# Add each note "panel" to an array to be modified (Color, Brightness, etc.)
-		notes_in_timeline.append(panel)
+		physical_notes.append(panel)
 
 
 func _input(event):
@@ -66,6 +66,7 @@ func _input(event):
 	if event.pressed:
 		if note_types.has(event.physical_scancode):
 			record_note(event.physical_scancode) 
+			update_note_visuals()
 			
 
 func record_note(scancode):
@@ -78,13 +79,36 @@ func record_note(scancode):
 	print(Data.written_notes)
 
 func update_note_visuals():
+
+	# Do not run function if there are no physical note nodes in the timeline
+	if physical_notes.size() <= 0: return
+
 	# Set all notes to default color
-	for i in notes_in_timeline.size():
-		notes_in_timeline[i].self_modulate = Color(0.2,0.2,0.2,1)
+	for i in physical_notes.size():
+
+		physical_notes[i].self_modulate = Color(0.2,0.2,0.2,1)
+		
+		for note in Data.written_notes:
+			# If the current beat has a note assigned to it
+			if note[0] == i:
+				
+				var colors = [
+					Color(26,161,199,255)/255,
+					Color(237,121,12,255)/255,
+					Color(199,43,22,255)/255,
+					Color(170,43,100,255)/255
+				]
+				print(colors[note[1]])
+
+				physical_notes[i].modulate = colors[note[1]]
+
+				
+		
+
 
 	# Highlight the note that sit at the index of the "current_beat"
-	notes_in_timeline[Data.current_beat].self_modulate = Color(1,1,1,1)
-	notes_in_timeline[Data.current_beat].grab_focus()
+	physical_notes[Data.current_beat].self_modulate = Color(1,1,1,1)
+	physical_notes[Data.current_beat].grab_focus()
 
 
 
