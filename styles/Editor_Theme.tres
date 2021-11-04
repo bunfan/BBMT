@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=12 format=2]
+[gd_resource type="Theme" load_steps=14 format=2]
 
 [ext_resource path="res://styles/fonts/pixel.tres" type="DynamicFont" id=1]
 [ext_resource path="res://assets/ui/boboa.png" type="Texture" id=2]
@@ -38,6 +38,16 @@ corner_radius_top_left = 2
 corner_radius_top_right = 2
 corner_radius_bottom_right = 2
 corner_radius_bottom_left = 2
+
+[sub_resource type="StyleBoxFlat" id=10]
+bg_color = Color( 1, 1, 1, 1 )
+
+[sub_resource type="StyleBoxFlat" id=11]
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color( 0, 0, 0, 1 )
 
 [sub_resource type="StyleBoxFlat" id=7]
 bg_color = Color( 1, 1, 1, 1 )
@@ -202,12 +212,14 @@ GridContainer/constants/vseparation = 4
 HBoxContainer/constants/separation = 4
 HScrollBar/icons/decrement = null
 HScrollBar/icons/decrement_highlight = null
+HScrollBar/icons/decrement_pressed = null
 HScrollBar/icons/increment = null
 HScrollBar/icons/increment_highlight = null
-HScrollBar/styles/grabber = null
-HScrollBar/styles/grabber_highlight = null
-HScrollBar/styles/grabber_pressed = null
-HScrollBar/styles/scroll = null
+HScrollBar/icons/increment_pressed = null
+HScrollBar/styles/grabber = SubResource( 10 )
+HScrollBar/styles/grabber_highlight = SubResource( 10 )
+HScrollBar/styles/grabber_pressed = SubResource( 10 )
+HScrollBar/styles/scroll = SubResource( 11 )
 HScrollBar/styles/scroll_focus = null
 HSeparator/constants/separation = 4
 HSeparator/styles/separator = null
