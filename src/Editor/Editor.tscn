@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://src/Editor/Editor.gd" type="Script" id=1]
 [ext_resource path="res://src/Editor/Importer/SettingsAssets.gd" type="Script" id=2]
@@ -13,6 +13,7 @@
 [ext_resource path="res://src/Editor/Importer/Importer.gd" type="Script" id=11]
 [ext_resource path="res://src/Editor/Parameters.gd" type="Script" id=12]
 [ext_resource path="res://src/UI/BeatIndicator.gd" type="Script" id=13]
+[ext_resource path="res://src/Editor/Export/Export.gd" type="Script" id=14]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.0392157, 0.0392157, 0.0392157, 1 )
@@ -699,6 +700,7 @@ __meta__ = {
 }
 
 [node name="Sequencer" type="Control" parent="Tabs"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_top = -2.0
@@ -828,8 +830,15 @@ __meta__ = {
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
+margin_left = 36.0
+margin_top = -63.0
+margin_right = -36.0
+margin_bottom = -9.0
+theme = ExtResource( 6 )
+follow_focus = true
 scroll_vertical_enabled = false
 __meta__ = {
+"_edit_group_": true,
 "_edit_use_anchors_": false
 }
 
@@ -840,20 +849,25 @@ __meta__ = {
 }
 
 [node name="Export" type="Control" parent="Tabs"]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_top = -2.0
+script = ExtResource( 14 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="Tabs/Export"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-text = "Build and Export options GO HERE"
-align = 1
-valign = 1
+[node name="Notes" type="Button" parent="Tabs/Export"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -112.0
+margin_top = -23.5
+margin_right = 112.0
+margin_bottom = 23.5
+theme = ExtResource( 6 )
+text = "Export Notes Only"
 __meta__ = {
 "_edit_use_anchors_": false
 }
