@@ -26,8 +26,9 @@ func open_asset(type: Array):
 
 	# Set Mode
 	file_dialog.mode = 1 # MODE_OPEN_FILES
-	file_dialog.access = 2 # ACCESS_FILESYSTEM
+	file_dialog.access = 0 # ACCESS_FILESYSTEM
 	file_dialog.filters = type
+	file_dialog.current_dir = "res://temp/"
 	
 	get_tree().current_scene.add_child(file_dialog)
 	file_dialog.popup()

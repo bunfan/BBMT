@@ -20,7 +20,6 @@ Base="*res://src/Autoload/Base.gd"
 Data="*res://src/Autoload/Storage.gd"
 Run="*res://src/Autoload/Run.gd"
 Assets="*res://src/Autoload/Assets.gd"
-Transitions="*res://src/Autoload/TransitionManager.gd"
 
 [display]
 
