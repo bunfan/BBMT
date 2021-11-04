@@ -10,7 +10,7 @@ var bpm: float = 128
 var loop_speed: float = 1
 var frame_rate_anim = 'loop_6'
 
-var song_length: int = 0
+
 var written_notes = []
 
 var dialog_path = 'res://'
@@ -19,5 +19,17 @@ var dialog_path = 'res://'
 var stage_name: String
 var framerate: int
 
+# Song Variables
+var song_length_beats: int = 0 setget length_set
+
 # Node Storage
 var conductor: AudioStreamPlayer
+var timeline: Panel
+
+# This is a setter function that gets the length of the song in beat
+# This is calculated in "Paramaters.gd" under the load_song() function
+# This also calls the timeline to re-draw the notes
+func length_set(value):
+    song_length_beats = value
+    print("Song length set to %s" % value)
+    timeline.draw_notes()

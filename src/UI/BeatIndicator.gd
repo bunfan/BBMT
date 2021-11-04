@@ -7,10 +7,9 @@ func _ready():
 func _process(_delta):
 	# Update beat indicator UI if stream located
 	if Data.conductor.stream:
-		var song_length_beats = int(Data.conductor.stream.get_length() / ((60.0/Data.bpm) / 2))
-		text = "Beat : %s / %s" % [Data.current_beat, song_length_beats]
+		text = "Beat : %s / %s" % [Data.current_beat, Data.song_length_beats]
 
-		$Progress.max_value = song_length_beats
+		$Progress.max_value = Data.song_length_beats
 		$Progress.value = Data.current_beat
 
 var seeker_dest 

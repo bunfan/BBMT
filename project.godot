@@ -20,6 +20,7 @@ Base="*res://src/Autoload/Base.gd"
 Data="*res://src/Autoload/Storage.gd"
 Run="*res://src/Autoload/Run.gd"
 Assets="*res://src/Autoload/Assets.gd"
+Scene="*res://src/Autoload/Scene.gd"
 
 [display]
 

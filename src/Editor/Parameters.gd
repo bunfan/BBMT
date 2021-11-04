@@ -36,6 +36,8 @@ func get_audio_list():
 func load_song(idx):
 	Data.conductor.reset()
 	Data.conductor.stream = Assets.audio[song_field.get_item_text(idx)]
+	Data.song_length_beats = int(Data.conductor.stream.get_length() / ((60.0/Data.bpm) / 2))
+	
 
 func set_bpm(value: float):
 	Data.bpm = value
