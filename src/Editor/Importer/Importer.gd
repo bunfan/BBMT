@@ -137,16 +137,5 @@ func populate_audio_list():
 		thumbnail.texture = ui_sound
 		bg_panel.add_child(thumbnail)
 
-		var label = Label.new()
-		label.autowrap = true
-		label.text = sheet
-		label.align = 1
-		label.valign = 1
-		label.set_anchors_preset(15) #FULL_RECT
-
-		var font = DynamicFont.new()
-		font.font_data = load("res://assets/font/HelvetiPixel.ttf")
-		font.size = 12
-		label.set("custom_fonts/font", font)
-
+		var label = Scene.create_label(sheet, 12)
 		vbox.add_child(label)
