@@ -4,7 +4,7 @@ var export_array = []
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	$Notes.connect("button_up", self, "export_notes")
+	var _e = $Notes.connect("button_up", self, "export_notes")
 
 func export_notes():
 
@@ -47,4 +47,4 @@ func write_notes_to_file():
 	var cfg = ConfigFile.new()
 	cfg.set_value("main","data", {"chart":export_array})
 	cfg.save("user://notes.cfg")
-	OS.shell_open(ProjectSettings.globalize_path("user://"))
+	if OS.shell_open(ProjectSettings.globalize_path("user://")) == OK: pass

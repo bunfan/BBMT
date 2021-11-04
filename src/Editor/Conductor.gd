@@ -4,8 +4,6 @@ var song_position = 0
 var beat = 0
 var last_beat = 0
 
-# onready var transitions = get_node('/root/Editor/Tabs/Transitions')
-
 func _ready():
 	Data.conductor = self
 	print(Data.conductor)
