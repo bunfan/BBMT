@@ -10,10 +10,6 @@ extends Control
 # TODO : Create transition management system similar to Beat Banger
 # TODO : User transition management system to load transition dynamically with song
 
-# DONE : Create tabs for switching panels
-# DONE : Create Dropdown selection for transition assets
-
-
 # Called when the node enters the scene tree for the first time.
 func _ready():
 
@@ -50,9 +46,12 @@ func tab_changed(tab_index):
 func on_playback_button(i):
 	match i:
 		0:
-			$Conductor.reset()
-			$Conductor.play()
-			$Tabs/Transitions/Preview/SpriteSheet/AnimationPlayer.play(Data.frame_rate_anim)
+			# Reset and play if there is a currently loaded song
+			if $Conductor.stream:
+				$Conductor.reset()
+				$Conductor.play()
+				# Update the time line to go back to beat 0
+				Data.timeline.update_note_visuals()
 		1:
 			$Conductor.stop()
 
