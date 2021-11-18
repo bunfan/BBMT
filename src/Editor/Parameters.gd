@@ -23,7 +23,6 @@ func set_framerate(value: float):
 	var strings = ["6","12","24"]
 	Data.framerate = int(value)
 	$Fields/FrameRate/Label.text = strings[value]
-	print(Data.framerate)
 
 # Song Field
 func get_audio_list():

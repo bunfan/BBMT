@@ -275,7 +275,6 @@ __meta__ = {
 }
 
 [node name="SettingsAssets" type="Control" parent="Tabs"]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_top = -3.12244
@@ -849,6 +848,7 @@ __meta__ = {
 }
 
 [node name="Export" type="Control" parent="Tabs"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_top = -2.0
