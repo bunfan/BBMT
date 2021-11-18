@@ -83,3 +83,16 @@ func load_audio(path):
 # Cut path to file name
 func filename_from_path(path: String):
 	return path.rsplit("/", true,1)[1]
+
+func is_mouse_clicked(event: InputEvent, mouse_button_index: int):
+	if event is InputEventMouseButton:
+		if event.button_index == mouse_button_index:
+			if event.pressed == true:
+				return true
+			else:
+				return false
+		else:
+			return false
+	else:
+		return false
+		

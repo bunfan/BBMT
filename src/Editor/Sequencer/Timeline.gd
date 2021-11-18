@@ -55,6 +55,7 @@ func draw_notes():
 
 		var label = Scene.create_label(str(i), 28)
 		panel.add_child(label)
+		panel.connect("gui_input", self, 'note_clicked', [i])
 
 		# Add each note "panel" to an array to be modified (Color, Brightness, etc.)
 		physical_notes.append(panel)
@@ -78,15 +79,29 @@ func record_note(scancode):
 	Data.written_notes.append([Data.current_beat, note_types[scancode]])
 	print(Data.written_notes)
 
+func note_clicked(event, idx):
+	if Base.is_mouse_clicked(event, 2): # BUTTON_RIGHT
+
+		# Remove Note
+		for i in Data.written_notes.size():
+			if Data.written_notes[i][0] == idx:
+				Data.written_notes.erase(Data.written_notes[i])
+				print("Removed Note %s : %s" % [idx, Data.written_notes[i]])
+				update_note_visuals()
+				return 
+
 func update_note_visuals():
 
 	# Do not run function if there are no physical note nodes in the timeline
 	if physical_notes.size() <= 0: return
 
+	print(physical_notes.size())
+
 	# Set all notes to default color
 	for i in physical_notes.size():
 
 		physical_notes[i].self_modulate = Color(0.2,0.2,0.2,1)
+		physical_notes[i].modulate = Color(1,1,1,1)
 		
 		for note in Data.written_notes:
 			# If the current beat has a note assigned to it
@@ -98,8 +113,7 @@ func update_note_visuals():
 					Color(199,43,22,255)/255,
 					Color(170,43,100,255)/255
 				]
-				print(colors[note[1]])
-
+				
 				physical_notes[i].modulate = colors[note[1]]
 
 				
